@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "MVPRxJava2Dagger2Moxy"
