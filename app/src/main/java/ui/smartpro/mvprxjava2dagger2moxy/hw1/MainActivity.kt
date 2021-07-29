@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    val presenter = MainPresenter(this)
+  private val presenter = MainPresenter(this,model = CountersModel())
 
     private val btn_counter1: Button by lazy { findViewById(R.id.btn_counter1) }
     private val btn_counter2: Button by lazy { findViewById(R.id.btn_counter2) }
@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
 
         btn_counter1.setOnClickListener {
-            presenter.counterClick(0)
+            presenter.counterClick1()
         }
         btn_counter2.setOnClickListener {
-            presenter.counterClick(1)
+            presenter.counterClick2()
         }
         btn_counter3.setOnClickListener {
-            presenter.counterClick(2)
+            presenter.counterClick3()
         }
     }
 
