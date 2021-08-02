@@ -10,13 +10,15 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces
  * и находим требуемый элемент.
  *
  * IListPresenter, сюда общие для всех списков вещи:
-    слушатель клика;
-    функция получения количества элементов;
-    функция наполнения View.
+слушатель клика;
+функция получения количества элементов;
+функция наполнения View.
  */
 
-interface IListPresenter<V: IItemView> {
+interface IListPresenter<V : IItemView> {
     var itemClickListener: ((V) -> Unit)?
+
+    //    fun onItemViewClick(githubUser: GithubUser)
     fun bindView(view: V)
     fun getCount(): Int
 }

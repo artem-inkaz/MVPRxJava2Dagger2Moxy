@@ -4,7 +4,7 @@ import moxy.MvpPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.CountersModel2
 import ui.smartpro.mvprxjava2dagger2moxy.CountersView
 
-class CountersPresenter2(private val model: CountersModel2): MvpPresenter<CountersView>() {
+class CountersPresenter2(private val model: CountersModel2) : MvpPresenter<CountersView>() {
 
     override fun onFirstViewAttach() {
         /*
@@ -38,5 +38,4 @@ class CountersPresenter2(private val model: CountersModel2): MvpPresenter<Counte
             .let(CountersMapper::map)
             .let(viewState::setButtonText3)
             .also { viewState.showCounterMessage() }
-
 }
