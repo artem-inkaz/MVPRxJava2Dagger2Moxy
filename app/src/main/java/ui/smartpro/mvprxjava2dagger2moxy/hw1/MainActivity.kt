@@ -8,6 +8,7 @@ import moxy.ktx.moxyPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.ActivityCountersBinding
 import ui.smartpro.mvprxjava2dagger2moxy.R.layout.activity_counters
 import ui.smartpro.mvprxjava2dagger2moxy.hw1.click
+import ui.smartpro.mvprxjava2dagger2moxy.hw2.CountersPresenter2
 
 //добавляем Moxy
 class MainActivity : MvpAppCompatActivity(activity_counters), CountersView {
@@ -15,7 +16,7 @@ class MainActivity : MvpAppCompatActivity(activity_counters), CountersView {
     private var viewBinding: ActivityCountersBinding? = null
 
 //  private val presenter = MainPresenter(model = CountersModel())
-    private val presenter by moxyPresenter { MainPresenter(model = CountersModel())}
+    private val presenter by moxyPresenter { CountersPresenter2(model = CountersModel2()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +40,9 @@ class MainActivity : MvpAppCompatActivity(activity_counters), CountersView {
                 .also { viewBinding -> setContentView(viewBinding.root) }
                 .apply {
                     // click через PopularLibrariesExtensions
-                    btnCounter1.click(presenter::counterClick1)
-                    btnCounter2.click(presenter::counterClick2)
-                    btnCounter3.click(presenter::counterClick3)
+                    btnCounter1.click(presenter::incrementCounter1)
+                    btnCounter2.click(presenter::incrementCounter2)
+                    btnCounter3.click(presenter::incrementCounter3)
                 }
     }
 
