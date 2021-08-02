@@ -6,7 +6,7 @@ import moxy.viewstate.strategy.StateStrategyType
 import moxy.viewstate.strategy.alias.OneExecution
 import moxy.viewstate.strategy.alias.Skip
 
-interface MainView: MvpView {
+interface CountersView: MvpView {
 
     /**
      * Показывает приветственное сообщение
@@ -45,7 +45,7 @@ interface MainView: MvpView {
     fun setButtonText3(text: String)
 
     /**
-     * Показывает сообщение о изменении счетчика.
+     * Показывает сообщение об изменении счетчика.
      */
     //выполнения.
     //SkipStrategy — команда не добавится в очередь и никак её (очередь) не изменит.

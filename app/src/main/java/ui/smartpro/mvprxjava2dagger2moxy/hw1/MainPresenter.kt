@@ -2,15 +2,15 @@ package ui.smartpro.mvprxjava2dagger2moxy
 
 import moxy.MvpPresenter
 
-// обавляем Moxy
-class MainPresenter(val model: CountersModel) : MvpPresenter<MainView>(){
+// объявляем Moxy
+class MainPresenter(val model: CountersModel) : MvpPresenter<CountersView>(){
 //    val model = CountersModel()
 
 
     fun counterClick1() {
-        val nextValue = model.next(0)
-//        view.setButtonText1(nextValue.toString())
-        viewState.setButtonText1(nextValue.toString())
+            val nextValue = model.next(0)
+    //        view.setButtonText1(nextValue.toString())
+            viewState.setButtonText1(nextValue.toString())
 
     }
 

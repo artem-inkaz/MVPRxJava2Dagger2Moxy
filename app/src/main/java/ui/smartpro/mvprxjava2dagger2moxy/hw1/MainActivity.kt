@@ -1,59 +1,91 @@
 package ui.smartpro.mvprxjava2dagger2moxy
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
+import ui.smartpro.mvprxjava2dagger2moxy.databinding.ActivityCountersBinding
+import ui.smartpro.mvprxjava2dagger2moxy.R.layout.activity_counters
+import ui.smartpro.mvprxjava2dagger2moxy.hw1.click
 
-class MainActivity : AppCompatActivity(), MainView {
+//добавляем Moxy
+class MainActivity : MvpAppCompatActivity(activity_counters), CountersView {
 
-  private val presenter = MainPresenter(this,model = CountersModel())
+    private var viewBinding: ActivityCountersBinding? = null
 
-    private val btn_counter1: Button by lazy { findViewById(R.id.btn_counter1) }
-    private val btn_counter2: Button by lazy { findViewById(R.id.btn_counter2) }
-    private val btn_counter3: Button by lazy { findViewById(R.id.btn_counter3) }
+//  private val presenter = MainPresenter(model = CountersModel())
+    private val presenter by moxyPresenter { MainPresenter(model = CountersModel())}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // без viewbinding
+//        setContentView(R.layout.activity_main)
+//        btn_counter1.setOnClickListener {presenter.counterClick1()}
+//        btn_counter2.setOnClickListener {presenter.counterClick2()}
+//        btn_counter3.setOnClickListener {presenter.counterClick3()}
 
-        btn_counter1.setOnClickListener {
-            presenter.counterClick1()
-        }
-        btn_counter2.setOnClickListener {
-            presenter.counterClick2()
-        }
-        btn_counter3.setOnClickListener {
-            presenter.counterClick3()
-        }
+        // стандартный вариант с viewBinding
+//        viewBinding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(viewBinding?.root)
+//        viewBinding?.btnCounter1?.setOnClickListener { presenter.counterClick1() }
+//        viewBinding?.btnCounter2?.setOnClickListener { presenter.counterClick2() }
+//        viewBinding?.btnCounter3?.setOnClickListener { presenter.counterClick3() }
+
+        // продвинутый вариант с viewBinding
+        viewBinding =
+            ActivityCountersBinding
+                .inflate(layoutInflater)
+                .also { viewBinding -> setContentView(viewBinding.root) }
+                .apply {
+                    // click через PopularLibrariesExtensions
+                    btnCounter1.click(presenter::counterClick1)
+                    btnCounter2.click(presenter::counterClick2)
+                    btnCounter3.click(presenter::counterClick3)
+                }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("BTN_1", btn_counter1.text as String?)
-        outState.putString("BTN_2", btn_counter2.text as String?)
-        outState.putString("BTN_3", btn_counter3.text as String?)
+    override fun showOnBoarding() {
+        AlertDialog
+            .Builder(this)
+            .setMessage(R.string.onboarding_message)
+            .create()
+            .show()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
+    // не нужен т.к. есть viewState от Moxy
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        outState.putString("BTN_1", btn_counter1.text as String?)
+//        outState.putString("BTN_2", btn_counter2.text as String?)
+//        outState.putString("BTN_3", btn_counter3.text as String?)
+//    }
 
-        if (savedInstanceState != null) {
-            btn_counter1.text = savedInstanceState.getString("BTN_1", "");
-            btn_counter2.text = savedInstanceState.getString("BTN_2", "");
-            btn_counter3.text = savedInstanceState.getString("BTN_3", "");
-        }
+    // не нужен т.к. есть viewState от Moxy
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//
+//        if (savedInstanceState != null) {
+//            btn_counter1.text = savedInstanceState.getString("BTN_1", "");
+//            btn_counter2.text = savedInstanceState.getString("BTN_2", "");
+//            btn_counter3.text = savedInstanceState.getString("BTN_3", "");
+//        }
+//    }
+
+    override fun setButtonText1(counter: String) {
+        viewBinding?.btnCounter1?.text = counter
     }
 
-    override fun setButtonText1(text: String) {
-           btn_counter1.text = text
+    override fun setButtonText2(counter: String) {
+        viewBinding?.btnCounter2?.text = counter
     }
 
-    override fun setButtonText2(text: String) {
-        btn_counter2.text = text
+    override fun setButtonText3(counter: String) {
+        viewBinding?.btnCounter3?.text = counter
     }
 
-    override fun setButtonText3(text: String) {
-        btn_counter3.text = text
+    override fun showCounterMessage() {
+        Toast.makeText(this, R.string.counter_message, Toast.LENGTH_SHORT)
+            .show()
     }
 }
