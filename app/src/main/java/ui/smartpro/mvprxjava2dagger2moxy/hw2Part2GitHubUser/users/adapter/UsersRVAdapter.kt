@@ -1,14 +1,11 @@
-package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.adapter
+package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.users.adapter
 
-import android.graphics.Movie
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.ViewUserBinding
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.IUserListPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.UserItemView
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.model.GithubUser
 
 /**
  * Таким образом, адаптер не имеет ссылок на данные и

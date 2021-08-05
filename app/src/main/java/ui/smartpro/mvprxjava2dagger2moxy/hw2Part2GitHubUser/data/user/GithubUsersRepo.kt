@@ -1,6 +1,4 @@
-package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.repositories
-
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.model.GithubUser
+package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.data.user
 
 //репозиторий с фиктивными данными
 class GithubUsersRepo {

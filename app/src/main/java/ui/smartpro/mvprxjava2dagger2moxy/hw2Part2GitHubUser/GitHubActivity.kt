@@ -6,16 +6,16 @@ import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.R
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.GithubActivityBinding
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone.App
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone.App.Navigation.navigatorHolder
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone.App.Navigation.router
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.BackButtonListener
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.ListGitHubView
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.presenters.MainPresenter
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.screen.AndroidScreens
 
 class GitHubActivity : MvpAppCompatActivity(), ListGitHubView {
 
     val navigator = AppNavigator(this, R.id.container)
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
+    private val presenter by moxyPresenter { MainPresenter(router) }
     private var viewbinding: GithubActivityBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class GitHubActivity : MvpAppCompatActivity(), ListGitHubView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.instance.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     /**
@@ -46,8 +46,8 @@ class GitHubActivity : MvpAppCompatActivity(), ListGitHubView {
      */
 
     override fun onPause() {
+        navigatorHolder.removeNavigator()
         super.onPause()
-        App.instance.navigatorHolder.removeNavigator()
     }
 
     /**

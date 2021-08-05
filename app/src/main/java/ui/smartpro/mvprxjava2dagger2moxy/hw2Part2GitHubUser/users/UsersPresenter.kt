@@ -1,21 +1,20 @@
-package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.presenters
+package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.users
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.IUserListPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.UserItemView
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.UsersView
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.model.GithubUser
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.repositories.GithubUsersRepo
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.screen.IScreens
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.data.user.GithubUser
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.data.user.GithubUsersRepo
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.user.UserScreen
 
 /**
  *  переносим сюда содержимое MainPresenter,
  *  поправив его для работы с UsersView и
  *  передав в него Router для навигации
  */
-class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router, val screens: IScreens) :
+class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router: Router) :
     MvpPresenter<UsersView>() {
     /**
      * Мы реализовали интерфейс IUserListPresenter классом UsersListPresenter,
@@ -43,22 +42,15 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router, val scr
         super.onFirstViewAttach()
         viewState.init()
         loadData()
-        //       usersListPresenter.itemClickListener = {userItemView ->
-        //           val user = users[userItemView.pos]
-//          router.navigateTo(screens.userID(userItemView.pos))
-//            router.navigateTo(Screens.GotoFragmentUserId(users[userItemView.pos]))
-//           Log.d("usersListPresenter","${userItemView.pos} ")
-//        }
+
     }
 
-    fun loadData() {
+    private fun loadData() {
         val users = usersRepo.getUsers()
         usersListPresenter.users.addAll(users)
         usersListPresenter.itemClickListener = { userItemView ->
-            router.navigateTo(screens.userID(users[userItemView.pos]))
-//      router.navigateTo(Screens.GotoFragmentUserId(users[userItemView.pos]))
-//      Log.d("usersListPresenter","${userItemView.pos} ")
-            Log.d("usersListPresenter", "${users[userItemView.pos]}")
+            router.navigateTo(UserScreen(users[userItemView.pos]).userID())
+            Log.d("usersListPresenter", "${userItemView.pos}")
         }
         viewState.updateList()
     }

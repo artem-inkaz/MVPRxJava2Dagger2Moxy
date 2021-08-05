@@ -1,4 +1,4 @@
-package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.ui
+package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.FragmentUsersBinding
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.adapter.UsersRVAdapter
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone.App
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.users.adapter.UsersRVAdapter
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone.App.Navigation.router
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.BackButtonListener
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.UsersView
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.presenters.UsersPresenter
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.repositories.GithubUsersRepo
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.screen.AndroidScreens
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.data.user.GithubUsersRepo
 
 /**
  * переносим содержимое из GitHubActivity с правками
@@ -26,8 +23,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     }
 
-    val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GithubUsersRepo(), App.instance.router, AndroidScreens())
+    private val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter(GithubUsersRepo(), router)
     }
 
     private var adapter: UsersRVAdapter? = null
