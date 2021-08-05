@@ -2,11 +2,16 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.users
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.IUserListPresenter
-import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.UserItemView
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.data.user.GithubUser
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.data.user.GithubUsersRepo
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.IUserListPresenter
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.interfaces.UserItemView
 import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.user.UserScreen
 
 /**
@@ -36,6 +41,7 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
         }
     }
 
+    private val compositeDisposable = CompositeDisposable()
     val usersListPresenter = UsersListPresenter()
 
     override fun onFirstViewAttach() {
@@ -46,13 +52,57 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
     }
 
     private fun loadData() {
-        val users = usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
-        usersListPresenter.itemClickListener = { userItemView ->
-            router.navigateTo(UserScreen(users[userItemView.pos]).userID())
-            Log.d("usersListPresenter", "${userItemView.pos}")
+        Observable.fromCallable {
+            val users = usersRepo.getUsers()
+            usersListPresenter.users.addAll(users)
+            usersListPresenter.itemClickListener = { userItemView ->
+                router.navigateTo(UserScreen(users[userItemView.pos]).userID())
+                Log.d("usersListPresenter", "${userItemView.pos}")
+            }
         }
-        viewState.updateList()
+//            .filter{/* do something */ }
+//            .flatMap{/* do something */ }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete {/* do something */
+                            viewState.updateList()
+                          }
+            .doOnDispose { /* do something */ }
+            .doOnError { /* do something */ }
+            .subscribe({
+                Log.d("usersListPresenter", "Успешно")
+            },
+                {
+                    Log.e("usersListPresenter", "Ошибка", it)
+                }
+            )
+    }
+
+    private fun loadData2() {
+        val disposableGetUserID = Completable.fromAction {
+            val users = usersRepo.getUsers()
+            usersListPresenter.users.addAll(users)
+            usersListPresenter.itemClickListener = { userItemView ->
+                router.navigateTo(UserScreen(users[userItemView.pos]).userID())
+                Log.d("usersListPresenter", "${userItemView.pos}")
+            }
+        }
+//            .filter{/* do something */ }
+//            .flatMap{/* do something */ }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete { /* do something */ viewState.updateList()}
+            .doOnDispose { /* do something */ }
+            .doOnError { /* do something */ }
+            .subscribe(
+                {
+                Log.d("usersListPresenter", "Успешно")
+            },
+                {
+                    Log.e("usersListPresenter", "Ошибка")
+                }
+            )
+        compositeDisposable.add(disposableGetUserID)
     }
 
     fun backPressed(): Boolean {
