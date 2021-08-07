@@ -6,9 +6,10 @@ import moxy.viewstate.strategy.StateStrategyType
 
 /**
  *  переносим сюда содержимое из MainView
+ *  интерфейс презентера списка
+ *  Так как всё, что появится на экране — просто список, интерфейс включает всего два метода:
  */
-// интерфейс презентера списка
-// Так как всё, что появится на экране — просто список, интерфейс включает всего два метода:
+
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface UsersView : MvpView {
 
