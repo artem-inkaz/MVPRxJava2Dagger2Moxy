@@ -86,7 +86,7 @@ class ConverterFragment : MvpAppCompatFragment(activity_converter), ConverterVie
                 it.value == true
             }
             if (granted) {
-
+                photoCameraIntent()
             }
         }
 
@@ -195,7 +195,7 @@ class ConverterFragment : MvpAppCompatFragment(activity_converter), ConverterVie
         )
         if (resultFL == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                requireActivity(),PERMISSIONS,
                 100
             )
         } else {
@@ -432,6 +432,7 @@ class ConverterFragment : MvpAppCompatFragment(activity_converter), ConverterVie
 
     // Диалоговое окно при конвертации
     private fun showAlertMessage() {
+
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.conversion_message)
             .setPositiveButton("Stop") { dialog, id ->
@@ -442,6 +443,32 @@ class ConverterFragment : MvpAppCompatFragment(activity_converter), ConverterVie
             }
             .create()
             .show()
+
+    }
+
+    private fun AlertShow(){
+            // build alert dialog
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+
+            // set message of alert dialog
+            dialogBuilder.setMessage("Do you want to close this application ?")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("Proceed", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.dismiss()
+                })
+                // negative button text and action
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("AlertDialogExample")
+            // show alert dialog
+            alert.show()
 
     }
 
