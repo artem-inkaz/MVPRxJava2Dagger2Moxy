@@ -1,4 +1,4 @@
-package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone
+package ui.smartpro.mvprxjava2dagger2moxy.cicerone
 
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
