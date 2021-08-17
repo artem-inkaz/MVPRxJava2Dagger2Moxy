@@ -9,10 +9,12 @@ import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.datasource.
  */
 object GitHubUserRepositoryFactory {
 
-    fun create(): GitHubUserRepository =
+    private val repository: GitHubUserRepository by lazy {
         GitHubUserRepositoryImpl(
             UserDataSourceFactory.create(),
             CacheUserDataSourceFactory.create()
         )
+    }
 
+    fun create(): GitHubUserRepository = repository
 }
