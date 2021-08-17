@@ -8,5 +8,4 @@ object UsersScreen: FragmentScreen {
 
     override fun createFragment(factory: FragmentFactory): Fragment =
         UsersFragment.newInstance()
-
 }

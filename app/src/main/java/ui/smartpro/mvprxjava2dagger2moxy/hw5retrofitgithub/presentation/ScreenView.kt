@@ -7,5 +7,4 @@ interface ScreenView : MvpView {
 
     @SingleState
     fun showError(error: Throwable)
-
 }

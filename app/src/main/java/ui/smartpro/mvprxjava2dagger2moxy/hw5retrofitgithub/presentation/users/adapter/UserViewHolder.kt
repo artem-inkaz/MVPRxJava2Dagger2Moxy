@@ -3,6 +3,7 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.users.a
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.ViewUserBinding
 import ui.smartpro.mvprxjava2dagger2moxy.ext.click
 import ui.smartpro.mvprxjava2dagger2moxy.ext.setStartDrawableCircleImageFromUri
@@ -20,5 +21,4 @@ class UserViewHolder(view: View): ViewHolder(view) {
             root.click { delegate?.onUserPicked(user) }
         }
     }
-
 }

@@ -5,13 +5,8 @@ import io.reactivex.Single
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.Database
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubRepository
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubUser
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUser
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepoList
 
 class CacheUserDataSourceImpl(private val database: Database) : CacheUserDataSource {
-
-    private val cache = mutableListOf<RoomGithubUser>()
-    private val cacheRepoList = mutableListOf<RoomGithubRepository>()
 
     override fun getUsers(): Single<List<RoomGithubUser>> =
         database

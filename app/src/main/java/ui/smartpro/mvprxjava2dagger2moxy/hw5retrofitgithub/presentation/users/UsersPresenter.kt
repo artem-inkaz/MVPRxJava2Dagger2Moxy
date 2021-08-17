@@ -38,5 +38,4 @@ class UsersPresenter(
     override fun onDestroy() {
         disposables.dispose()
     }
-
 }

@@ -18,32 +18,10 @@ class GitHubUserRepositoryImpl(
             cache.getUsers().toObservable(),
             cloud.getUsers().flatMap(cache::retain).toObservable()
         )
-
-//        cache.getUsers()
-//            .flatMap { users ->
-//                if (users.isEmpty()) {
-//                    cloud.getUsers()
-//                        .flatMap(cache::retain)
-//                } else {
-//                    Single.just(users)
-//                }
-//            }
-            //.map { users -> users.map { it.copy(login = it.login.lowercase()) } }
-
     override fun getUserByLogin(userId: String): Maybe<RoomGithubUser> =
         cache.getUserByLogin(userId)
             .switchIfEmpty(cloud.getUserByLogin(userId))
 
     override fun getUserListRepo(userId: String): Single<List<RoomGithubRepository>> =
         cloud.getUserListRepo(userId)
-
-//            .subscribeOn(Schedulers.io())
-
-//    override fun getUserListRepo(userId: String): Maybe<List<GitHubUserRepoList>> =
-//        Observable.merge(
-//        cache.getUserListRepo(userId)
-//        cloud.getUserListRepo(userId).flatMap(cache::retainRepo).toObservable()
-//        )
-//        cache.getUserListRepo(userId)
-//        .switchIfEmpty(cloud.getUserListRepo(userId))
 }
