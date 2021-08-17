@@ -20,7 +20,9 @@ class GitHubUserRepositoryImpl(
         )
     override fun getUserByLogin(userId: String): Maybe<RoomGithubUser> =
         cache.getUserByLogin(userId)
-            .switchIfEmpty(cloud.getUserByLogin(userId))
+            .onErrorResumeNext(
+                cloud.getUserByLogin(userId)
+            )
 
     override fun getUserListRepo(userId: String): Single<List<RoomGithubRepository>> =
         cloud.getUserListRepo(userId)
