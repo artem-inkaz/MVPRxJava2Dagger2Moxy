@@ -2,32 +2,43 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.datasource
 
 import io.reactivex.Maybe
 import io.reactivex.Single
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.Database
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubRepository
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubUser
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUser
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepoList
 
-class CacheUserDataSourceImpl : CacheUserDataSource {
+class CacheUserDataSourceImpl(private val database: Database) : CacheUserDataSource {
 
-    private val cache = mutableListOf<GitHubUser>()
-    private val cacheRepoList = mutableListOf<GitHubUserRepoList>()
+    private val cache = mutableListOf<RoomGithubUser>()
+    private val cacheRepoList = mutableListOf<RoomGithubRepository>()
 
-    override fun getUsers(): Single<List<GitHubUser>> =
-        Single.just(cache)
+    override fun getUsers(): Single<List<RoomGithubUser>> =
+        database
+            .userDao
+            .fetchUsers()
 
-    override fun getUserByLogin(userId: String): Maybe<GitHubUser> =
-        cache.firstOrNull { user -> user.login.contentEquals(userId) }
-            ?.let { user -> Maybe.just(user) }
-            ?: Maybe.empty()
+    override fun getUserByLogin(userId: String): Maybe<RoomGithubUser> =
+        database
+            .userDao
+            .fetchUserByLogin(userId)
+            .toMaybe()
 
-    override fun getUserListRepo(reposUrl: String): Single<List<GitHubUserRepoList>> =
-        Single.just(cacheRepoList)
+    override fun getUserListRepo(reposUrl: String): Single<List<RoomGithubRepository>> =
+        database
+            .repositoryDao
+            .getUserListRepo(reposUrl)
 
-    override fun retain(users: List<GitHubUser>): Single<List<GitHubUser>> =
-        Single.fromCallable {
-            cache.clear()
-            cache.addAll(users)
-            cache
-        }
+    override fun retain(users: List<RoomGithubUser>): Single<List<RoomGithubUser>> =
+        database
+            .userDao
+            .retain(users)
+            .andThen(getUsers())
 
-    override fun retain(user: GitHubUser): Single<GitHubUser> =
-        Single.fromCallable { user }
+    override fun retain(user: RoomGithubUser): Single<RoomGithubUser> =
+        database
+            .userDao
+            .retain(user)
+            .andThen(getUserByLogin(user.id))
+            .toSingle()
 }

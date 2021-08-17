@@ -3,13 +3,15 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.datasource
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubRepository
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubUser
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUser
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepoList
 
 interface UserDataSource {
 
-    fun getUsers(): Single<List<GitHubUser>>
-    fun getUserByLogin(userId: String): Maybe<GitHubUser>
+    fun getUsers(): Single<List<RoomGithubUser>>
+    fun getUserByLogin(userId: String): Maybe<RoomGithubUser>
 
-    fun getUserListRepo(reposUrl: String): Single<List<GitHubUserRepoList>>
+    fun getUserListRepo(reposUrl: String): Single<List<RoomGithubRepository>>
 }

@@ -7,4 +7,5 @@ data class GitHubUser(
     @SerializedName("login") val login: String,
     @SerializedName("avatar_url") val avatar: String,
     @SerializedName("repos_url") val repos_url: String,
+
 )
