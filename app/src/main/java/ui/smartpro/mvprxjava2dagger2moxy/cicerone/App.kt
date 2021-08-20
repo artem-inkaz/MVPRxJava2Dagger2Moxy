@@ -4,15 +4,18 @@ import android.app.Application
 import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import io.reactivex.plugins.RxJavaPlugins
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.di.DaggerApplicationComponent
 
-class App:Application() {
+class App:DaggerApplication() {
 
-    object ContextHolder {
-
-        lateinit var context: Context
-
-    }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+        DaggerApplicationComponent
+            .builder()
+            .withContext(applicationContext)
+            .build()
 
     companion object Navigation{
 
@@ -29,7 +32,6 @@ class App:Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ContextHolder.context = applicationContext
         RxJavaPlugins.setErrorHandler {  }
     }
 
