@@ -5,18 +5,20 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import ui.smartpro.mvprxjava2dagger2moxy.R.layout.view_users
+import com.github.terrakok.cicerone.Router
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ui.smartpro.mvprxjava2dagger2moxy.cicerone.App.Navigation.router
+import ui.smartpro.mvprxjava2dagger2moxy.R.layout.view_users
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.ViewUsersBinding
 import ui.smartpro.mvprxjava2dagger2moxy.ext.arguments
-import ui.smartpro.mvprxjava2dagger2moxy.scheduler.SchedulersFactory
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepositoryFactory
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepository
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.GitHubUserViewModel
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.abs.AbsFragment
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.users.adapter.UsersAdapter
+import ui.smartpro.mvprxjava2dagger2moxy.scheduler.Schedulers
+import javax.inject.Inject
 
-class UsersFragment: MvpAppCompatFragment(view_users), UsersView, UsersAdapter.Delegate {
+class UsersFragment: AbsFragment(view_users), UsersView, UsersAdapter.Delegate {
 
     companion object {
 
@@ -26,11 +28,20 @@ class UsersFragment: MvpAppCompatFragment(view_users), UsersView, UsersAdapter.D
 
     }
 
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var schedulers: Schedulers
+
+    @Inject
+    lateinit var gitHubUserRepository: GitHubUserRepository
+
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            userRepository = GitHubUserRepositoryFactory.create(),
+            userRepository = gitHubUserRepository,
             router = router,
-            schedulers = SchedulersFactory.create()
+            schedulers = schedulers
         )
     }
 

@@ -5,18 +5,19 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import moxy.MvpAppCompatFragment
+import com.github.terrakok.cicerone.Router
 import moxy.ktx.moxyPresenter
 import ui.smartpro.mvprxjava2dagger2moxy.R.layout.view_user_repo_list
-import ui.smartpro.mvprxjava2dagger2moxy.cicerone.App.Navigation.router
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.ViewUserRepoListBinding
 import ui.smartpro.mvprxjava2dagger2moxy.ext.arguments
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepositoryFactory
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepository
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.GitHubUserRepoViewModel
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.abs.AbsFragment
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.userrepolist.adapter.UserRepoAdapter
-import ui.smartpro.mvprxjava2dagger2moxy.scheduler.SchedulersFactory
+import ui.smartpro.mvprxjava2dagger2moxy.scheduler.Schedulers
+import javax.inject.Inject
 
-class UserRepoListFragment: MvpAppCompatFragment(view_user_repo_list), UserRepoListView, UserRepoAdapter.Delegate {
+class UserRepoListFragment: AbsFragment(view_user_repo_list), UserRepoListView, UserRepoAdapter.Delegate {
 
     companion object Factory {
 
@@ -28,6 +29,15 @@ class UserRepoListFragment: MvpAppCompatFragment(view_user_repo_list), UserRepoL
 
     }
 
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var schedulers: Schedulers
+
+    @Inject
+    lateinit var gitHubUserRepository: GitHubUserRepository
+
     private val reposUrl: String by lazy {
         arguments?.getString(ARG_USER_LOGIN).orEmpty()
     }
@@ -36,8 +46,8 @@ class UserRepoListFragment: MvpAppCompatFragment(view_user_repo_list), UserRepoL
         UserRepoListPresenter(
             repos_url = reposUrl,
             router = router,
-            userRepository = GitHubUserRepositoryFactory.create(),
-            schedulers = SchedulersFactory.create()
+            userRepository = gitHubUserRepository,
+            schedulers = schedulers
         )
     }
 

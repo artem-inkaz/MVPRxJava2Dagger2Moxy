@@ -2,21 +2,28 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation
 
 import android.os.Bundle
 import android.widget.Toast
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import moxy.MvpAppCompatActivity
-import ui.smartpro.mvprxjava2dagger2moxy.cicerone.App.Navigation.navigatorHolder
-import ui.smartpro.mvprxjava2dagger2moxy.cicerone.App.Navigation.router
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.network.NetworkState
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.network.NetworkStateObservable
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.abs.AbsActivity
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.users.UsersScreen
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class MainActivity : MvpAppCompatActivity() {
+class MainActivity : AbsActivity() {
 
     private val navigator = AppNavigator(this, android.R.id.content)
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var router: Router
 
     override fun onResumeFragments() {
         super.onResumeFragments()
