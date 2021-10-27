@@ -7,11 +7,11 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import ui.smartpro.mvprxjava2dagger2moxy.cicerone.App
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.cicerone.App
+import ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUserscheduler.scheduler.Schedulers
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.di.modules.GitHubApiModule
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.di.modules.GitHubStorageModule
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.di.modules.UsersModule
-import ui.smartpro.mvprxjava2dagger2moxy.scheduler.Schedulers
 import javax.inject.Singleton
 
 @Singleton
