@@ -5,6 +5,12 @@
     <string name="counter_three">Счетчик 3</string>
     <string name="counter_message">Счетчик увеличен!</string>
     <string name="onboarding_message">Нажимайте на кнопку и увеличивайте ее счетчик</string>
+    <string name="conversion_message">Conversion is in progress</string>
     <string name="user_id_title">User ID Title</string>
     <string name="user_name_title">User Name Title</string>
+
+    <string-array name="attachment_type">
+        <item>Gallery</item>
+        <item>Camera</item>
+    </string-array>
 </resources>
