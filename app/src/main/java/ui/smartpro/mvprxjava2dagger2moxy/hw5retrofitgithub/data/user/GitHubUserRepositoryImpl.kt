@@ -7,9 +7,8 @@ import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.Ro
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubUser
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.datasource.CacheUserDataSource
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.datasource.UserDataSource
-import javax.inject.Inject
 
-class GitHubUserRepositoryImpl @Inject constructor(
+class GitHubUserRepositoryImpl(
     private val cloud: UserDataSource,
     private val cache: CacheUserDataSource
 ) : GitHubUserRepository {

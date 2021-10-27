@@ -1,29 +1,35 @@
 package ui.smartpro.mvprxjava2dagger2moxy.cicerone
 
+import android.app.Application
+import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
 import io.reactivex.plugins.RxJavaPlugins
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.di.DaggerApplicationComponent
-import ui.smartpro.mvprxjava2dagger2moxy.scheduler.DefaultSchedulers
 
-class App:DaggerApplication() {
+class App:Application() {
 
-    override fun applicationInjector(): AndroidInjector<App> =
-        DaggerApplicationComponent
-            .builder()
-            .withContext(applicationContext)
-            .apply {
-                val cicerone = Cicerone.create()
-                withNavigationHolder(cicerone.getNavigatorHolder())
-                withRouter(cicerone.router)
-                withSchedulers(DefaultSchedulers())
-            }
-            .build()
+    object ContextHolder {
+
+        lateinit var context: Context
+
+    }
+
+    companion object Navigation{
+
+        /**
+         * Временно до даггера положим это тут
+         */
+
+        private val cicerone: Cicerone<Router> by lazy {
+            Cicerone.create()
+        }
+        val navigatorHolder get() = cicerone.getNavigatorHolder()
+        val router get() = cicerone.router
+   }
 
     override fun onCreate() {
         super.onCreate()
+        ContextHolder.context = applicationContext
         RxJavaPlugins.setErrorHandler {  }
     }
 
