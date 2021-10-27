@@ -12,5 +12,4 @@ interface UsersView : ScreenView {
      */
     @SingleState
     fun showUsers(users: List<GitHubUserViewModel>)
-
 }

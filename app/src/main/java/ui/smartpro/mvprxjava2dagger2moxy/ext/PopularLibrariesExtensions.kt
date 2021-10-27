@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomViewTarget
@@ -28,6 +29,7 @@ fun TextView.setStartDrawableCircleImageFromUri(uri: String, placeholder: Int = 
     Glide.with(context)
         .load(glideUrl)
         .placeholder(placeholder)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .apply(
             RequestOptions
                 .circleCropTransform()

@@ -3,7 +3,6 @@ package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.userrep
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import ui.smartpro.mvprxjava2dagger2moxy.R.layout.view_user_repo_detail
 import ui.smartpro.mvprxjava2dagger2moxy.R.layout.view_user_repo_item
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.GitHubUserRepoViewModel
 

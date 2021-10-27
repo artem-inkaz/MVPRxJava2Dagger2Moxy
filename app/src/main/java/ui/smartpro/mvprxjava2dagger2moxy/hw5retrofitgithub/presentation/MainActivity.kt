@@ -60,5 +60,4 @@ class MainActivity : MvpAppCompatActivity() {
 
         disposables.dispose()
     }
-
 }

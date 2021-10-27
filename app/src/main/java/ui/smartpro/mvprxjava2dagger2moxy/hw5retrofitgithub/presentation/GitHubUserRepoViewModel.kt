@@ -1,6 +1,6 @@
 package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation
 
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepoList
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.room.entities.RoomGithubRepository
 
 data class GitHubUserRepoViewModel(
     val name: String,
@@ -11,14 +11,12 @@ data class GitHubUserRepoViewModel(
 
     object Mapper {
 
-        fun map(user: GitHubUserRepoList) =
+        fun map(user: RoomGithubRepository) =
             GitHubUserRepoViewModel(
                 user.name,
                 user.description!!,
                 user.language,
                 user.forks_count
             )
-
     }
-
 }

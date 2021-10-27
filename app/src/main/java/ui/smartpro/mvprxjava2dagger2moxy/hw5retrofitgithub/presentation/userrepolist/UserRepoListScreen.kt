@@ -8,5 +8,4 @@ class UserRepoListScreen(private val reposUrl: String): FragmentScreen {
 
     override fun createFragment(factory: FragmentFactory): Fragment =
         UserRepoListFragment.newInstance(reposUrl)
-
 }

@@ -53,5 +53,4 @@ class UsersFragment: MvpAppCompatFragment(view_users), UsersView, UsersAdapter.D
 
     override fun onUserPicked(user: GitHubUserViewModel) =
         presenter.displayUser(user)
-
 }

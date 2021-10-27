@@ -4,11 +4,10 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import moxy.MvpPresenter
-import ui.smartpro.mvprxjava2dagger2moxy.scheduler.Schedulers
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.data.user.GitHubUserRepository
-import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.GitHubUserRepoViewModel
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.GitHubUserViewModel
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.userrepolist.UserRepoListScreen
+import ui.smartpro.mvprxjava2dagger2moxy.scheduler.Schedulers
 
 class UserPresenter(
     private val userLogin: String,
@@ -39,5 +38,4 @@ class UserPresenter(
     override fun onDestroy() {
         disposables.clear()
     }
-
 }
