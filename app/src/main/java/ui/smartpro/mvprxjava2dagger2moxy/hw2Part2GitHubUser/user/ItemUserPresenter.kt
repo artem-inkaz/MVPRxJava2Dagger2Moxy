@@ -8,5 +8,4 @@ class ItemUserPresenter(private val user: GithubUser) : MvpPresenter<UserView>()
     override fun onFirstViewAttach() {
         viewState.showUser(user)
     }
-
 }

@@ -54,6 +54,9 @@ dependencies {
     implementation "com.github.moxy-community:moxy-androidx:2.1.2"
     //Cicerone
     implementation 'com.github.terrakok:cicerone:6.6'
-    //REcyclerView
+    //RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    //Rx
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 }
