@@ -1,11 +1,11 @@
-package ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.user
+package ui.smartpro.mvprxjava2dagger2moxy.hw2Part2GitHubUser.converterjpgtopng
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
-class UserScreen(private val userLogin: String): FragmentScreen {
+object ConverterScreen: FragmentScreen {
 
     override fun createFragment(factory: FragmentFactory): Fragment =
-        UserFragment.newInstance(userLogin)
+        ConverterFragment.newInstance()
 }
