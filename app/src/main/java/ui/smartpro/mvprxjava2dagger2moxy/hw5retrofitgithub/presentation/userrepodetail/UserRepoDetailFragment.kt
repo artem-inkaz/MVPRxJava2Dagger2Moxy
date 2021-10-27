@@ -8,13 +8,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import moxy.MvpAppCompatFragment
 import ui.smartpro.mvprxjava2dagger2moxy.R.layout.view_user_repo_detail
 import ui.smartpro.mvprxjava2dagger2moxy.databinding.ViewUserBinding
 import ui.smartpro.mvprxjava2dagger2moxy.ext.arguments
 import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.GitHubUserRepoViewModel
+import ui.smartpro.mvprxjava2dagger2moxy.hw5retrofitgithub.presentation.abs.AbsFragment
 
-class UserRepoDetailFragment : MvpAppCompatFragment(view_user_repo_detail), UserRepoDetailView {
+class UserRepoDetailFragment : AbsFragment(view_user_repo_detail), UserRepoDetailView {
 
     private lateinit var userBundle: GitHubUserRepoViewModel
 

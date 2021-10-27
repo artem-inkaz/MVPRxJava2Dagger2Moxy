@@ -9,7 +9,7 @@ class App:Application() {
     companion object Navigation{
 
         /**
-         *         Временно до даггера положим это тут
+         * Временно до даггера положим это тут
          */
 
         private val cicerone: Cicerone<Router> by lazy {
